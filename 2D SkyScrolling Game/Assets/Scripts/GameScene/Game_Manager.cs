@@ -34,7 +34,7 @@ public class Game_Manager : MonoBehaviour
     
     IEnumerator GameSpeedUp()
     {
-        while (true && !is_player_dead)
+        while (!is_player_dead)
         {
             playercamerafollower.transform.position += new Vector3(0.01f, 0,0);
             game_speed += 1.0f;

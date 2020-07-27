@@ -6,6 +6,9 @@ TagManager:
   tags:
   - spike
   - coin
+  - enemyrange
+  - laser
+  - enemy
   layers:
   - Default
   - TransparentFX

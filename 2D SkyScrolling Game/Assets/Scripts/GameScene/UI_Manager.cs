@@ -40,6 +40,7 @@ public class UI_Manager : MonoBehaviour
 
     public void GameOverUi()
     {
+        Game_Manager.instance.GetComponent<AudioSource>().Play();
         gameoverui.gameObject.SetActive(true);
         int ending_score = Game_Manager.instance.playing_score;
         gameover_score.text = "Score:\n" + ending_score.ToString();

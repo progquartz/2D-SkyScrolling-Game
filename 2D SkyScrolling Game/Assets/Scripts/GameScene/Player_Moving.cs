@@ -30,7 +30,7 @@ public class Player_Moving : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "spike")
+        if (collision.tag == "spike" || collision.tag == "enemy" || collision.tag == "laser")
         {
             Destroy(this.gameObject);
             Game_Manager.instance.is_player_dead = true;
@@ -52,7 +52,6 @@ public class Player_Moving : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                Debug.Log("Down");
                 if (playerMovingRate > 0)
                 {
                     playerMovingRate -= 3.0f;
@@ -64,7 +63,6 @@ public class Player_Moving : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                Debug.Log("Up");
                 if (playerMovingRate < 0)
                 {
                     playerMovingRate += 3.0f;

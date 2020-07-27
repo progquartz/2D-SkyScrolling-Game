@@ -55,5 +55,9 @@ public class Bound_SpikeSpawn : MonoBehaviour
         {
             collision.GetComponent<Coin_Moving>().CoinRespawn();
         }
+        else if(collision.tag == "enemy")
+        {
+            collision.gameObject.transform.GetComponentInParent<Enemy_Shooting>().Replacer(spike_distance, spike_mid_position);
+        }
     }
 }

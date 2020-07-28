@@ -7,25 +7,26 @@ public class Player_Moving : MonoBehaviour
 {
     private float playerMovingRate;
     private char keyInput;
-    public Rigidbody2D rb;
+
+    private bool is_teleport_possible;
 
     private void Awake()
     {
-        
-        rb = this.GetComponent<Rigidbody2D>();
+        is_teleport_possible = true;
     }
     // Start is called before the first frame update
 
     private void FixedUpdate()
     {
         this.gameObject.transform.position += new Vector3(0, playerMovingRate * 0.3f ,0);
+        player_move();
         //rb.AddForce(new Vector2(0, playerMovingRate * 10));
         //this.transform.position += new Vector3(this.transform.position.x, this.transform.position.y + playerMovingRate, this.transform.position.z);
     }
     // Update is called once per frame
     void Update()
     {
-        player_move();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -72,6 +73,17 @@ public class Player_Moving : MonoBehaviour
                     playerMovingRate += 2.3f;
                 }
             }
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (Input.GetKey(KeyCode.DownArrow) && !Input.GetKey(KeyCode.UpArrow))
+                {
+                    Teleport(false);
+                }
+                else if (Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+                {
+                    Teleport(true);
+                }
+            }
         }
 
         if (playerMovingRate > 55)
@@ -83,4 +95,31 @@ public class Player_Moving : MonoBehaviour
             playerMovingRate = -55;
         }
     }
+
+    private void Teleport(bool is_side_up)
+    {
+        int teleport_distance = 100 + (int)playerMovingRate * 3;
+        if (is_side_up && is_teleport_possible)
+        {
+            this.GetComponent<AudioSource>().Play();
+            Debug.Log("moving up!");
+            this.gameObject.transform.position += new Vector3(0, 70, 0);
+        }
+        else if(is_teleport_possible)
+        {
+            this.GetComponent<AudioSource>().Play();
+            Debug.Log("moving down!");
+            this.gameObject.transform.position += new Vector3(0, -70, 0);
+        }
+        StartCoroutine(TeleportCoolTime());
+    }
+
+    IEnumerator TeleportCoolTime()
+    {
+        is_teleport_possible = false;
+
+        yield return new WaitForSeconds(1.0f);
+        is_teleport_possible = true;
+    }
 }
+

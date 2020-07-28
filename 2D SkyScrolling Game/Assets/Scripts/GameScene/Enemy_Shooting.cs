@@ -48,7 +48,7 @@ public class Enemy_Shooting : MonoBehaviour
 
     private void Update()
     {
-        if(shoot_cnt >= 40)
+        if(shoot_cnt >= 20)
         {
             is_enemy_shooting = true;
             shoot_cnt = 0;

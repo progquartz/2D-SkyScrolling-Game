@@ -5,10 +5,11 @@ using UnityEngine;
 public class LockDown : MonoBehaviour
 {
     private bool color_alpha = true;
+    bool is_shooted = false;
     public GameObject laser;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "Player" && !is_shooted)
         {
             this.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.8f);
             Blinking_LockOn();
@@ -17,6 +18,7 @@ public class LockDown : MonoBehaviour
 
     public void Blinking_LockOn()
     {
+        is_shooted = true;
         StartCoroutine(Blinking(5));
         this.GetComponent<AudioSource>().Play();
     }
@@ -50,5 +52,6 @@ public class LockDown : MonoBehaviour
             Debug.Log(a);
         }
         laser.SetActive(true);
+        is_shooted = false;
     }
 }
